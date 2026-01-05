@@ -1,5 +1,5 @@
 name: alertx
-description: "AlertX WebView Application"
+description: "AlertX Fullscreen WebView App"
 version: 1.0.0+1
 
 environment:
@@ -20,8 +20,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-# 👇 تنظیمات آیکن (خیلی مهم)
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/icon/icon.png"
+  image_path: assets/icon/icon.png
