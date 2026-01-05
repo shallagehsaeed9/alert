@@ -1,4 +1,4 @@
-.name: Build Flutter Android
+name: Build Flutter Android
 
 on:
   push:
