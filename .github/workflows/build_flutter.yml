@@ -9,44 +9,52 @@ on:
 
 jobs:
   build-android:
-    name: Build Android APK/AAB
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      # 1️⃣ Checkout repo
+      - uses: actions/checkout@v3
 
       # 2️⃣ Setup Flutter
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.38.5'
 
-      # 3️⃣ Accept Android Licenses
-      - name: Accept Android Licenses
-        run: yes | sdkmanager --licenses
+      # 3️⃣ Setup Java (required for Android SDK)
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      # 4️⃣ Get dependencies
+      # 4️⃣ Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 34
+          build-tools: '34.0.0'
+          ndk: '21.4.7075529'
+          target: default
+
+      # 5️⃣ Get Flutter dependencies
       - name: Flutter Pub Get
         run: flutter pub get
 
-      # 5️⃣ Build Release APK
-      - name: Build Release APK
+      # 6️⃣ Build APK
+      - name: Build APK
         run: flutter build apk --release
 
-      # 6️⃣ Build App Bundle
+      # 7️⃣ Build AAB
       - name: Build App Bundle
         run: flutter build appbundle --release
 
-      # 7️⃣ Upload APK Artifact
+      # 8️⃣ Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      # 8️⃣ Upload AAB Artifact
+      # 9️⃣ Upload AAB
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
