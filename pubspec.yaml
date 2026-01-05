@@ -23,5 +23,6 @@ flutter:
 flutter_icons:
   android: true
   ios: false
-  image_path: assets/icon/icon.jpeg
+  image_path: assets/icon/icon.jpg
+
 
