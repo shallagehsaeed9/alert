@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="Alert-X"
+        android:label="AlertX"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"> <!-- این خط مهم برای HTTP -->
@@ -45,4 +45,5 @@
     </queries>
 
 </manifest>
+
 
