@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,17 +40,28 @@ class _WebViewPageState extends State<WebViewPage>
 
   late final WebViewController controller;
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addObserver(this);
 
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(
-        Uri.parse("http://54.38.152.132:5000/"),
-      );
-  }
+  final PlatformWebViewControllerCreationParams params =
+      const PlatformWebViewControllerCreationParams();
+
+  controller = WebViewController.fromPlatformCreationParams(params)
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..loadRequest(Uri.parse("http://54.38.152.132:5000/"));
+
+  // 🔥 فعال‌سازی localStorage (خیلی مهم)
+  final androidController = controller.platform as AndroidWebViewController;
+  androidController.setSettings(
+    AndroidWebViewSettings(
+      domStorageEnabled: true,
+      databaseEnabled: true,
+    ),
+  );
+}
+
 
   // 🔒 re-hide system bars after resume
   @override
@@ -66,3 +80,4 @@ class _WebViewPageState extends State<WebViewPage>
     );
   }
 }
+
