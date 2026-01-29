@@ -52,15 +52,16 @@ void initState() {
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadRequest(Uri.parse("http://54.38.152.132:5000/"));
 
-  // 🔥 فعال‌سازی localStorage (خیلی مهم)
-  final androidController = controller.platform as AndroidWebViewController;
-  androidController.setSettings(
-    AndroidWebViewSettings(
-      domStorageEnabled: true,
-      databaseEnabled: true,
-    ),
-  );
+  // ✅ فعال‌سازی DOM Storage برای Android
+  if (controller.platform is AndroidWebViewController) {
+    final androidController =
+        controller.platform as AndroidWebViewController;
+
+    androidController.setJavaScriptEnabled(true);
+    androidController.setDomStorageEnabled(true);
+  }
 }
+
 
 
   // 🔒 re-hide system bars after resume
@@ -80,4 +81,5 @@ void initState() {
     );
   }
 }
+
 
