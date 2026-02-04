@@ -1,5 +1,5 @@
 name: alertx
-description: "AlertX Fullscreen WebView App"
+description: "AlertX Fullscreen WebView App" 
 version: 1.0.0+1
 
 environment:
@@ -24,6 +24,7 @@ flutter_icons:
   android: true
   ios: false
   image_path: assets/icon/icon.jpg
+
 
 
 
